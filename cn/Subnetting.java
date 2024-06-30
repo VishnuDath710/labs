@@ -1,18 +1,8 @@
 import java.util.*;
 
 class Subnetting {
-    public static void main(String args[]) {
-        System.out.println("Enter the Network address");
-        Scanner sc = new Scanner(System.in);
-        String ip = sc.next();
-        String[] IPs = ip.split("\\.");
-        int[] IP = new int[IPs.length];
-        for (int i = 0; i < IPs.length; i++) {
-            IP[i] = Integer.parseInt(IPs[i]);
-            // System.out.println(IP[i]);
-        }
-        System.out.println("Enter the number of Subnets");
-        int sub = sc.nextInt();
+
+    public static void Subnets(int IP[],int sub) {
         int temp = IP[0];
         int mask;
         if (temp < 128) {
@@ -49,6 +39,21 @@ class Subnetting {
             incr1 = incr2;
             incr2 = incr1 + incr;
         }
+    }
+
+    public static void main(String args[]) {
+        System.out.println("Enter the Network address");
+        Scanner sc = new Scanner(System.in);
+        String ip = sc.next();
+        String[] IPs = ip.split("\\.");
+        int[] IP = new int[IPs.length];
+        for (int i = 0; i < IPs.length; i++) {
+            IP[i] = Integer.parseInt(IPs[i]);
+            // System.out.println(IP[i]);
+        }
+        System.out.println("Enter the number of Subnets");
+        int sub = sc.nextInt();
+        Subnets(IP,sub);
         sc.close();
     }
 }

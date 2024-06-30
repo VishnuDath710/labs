@@ -13,8 +13,7 @@ public class Dns {
 				try {
 					System.out.println("\n Enter Host Name ");
 					String hname = in.readLine();
-					InetAddress address;
-					address = InetAddress.getByName(hname);
+					InetAddress address = InetAddress.getByName(hname);
 					System.out.println("Host Name: " + address.getHostName());
 					System.out.println("IP: " + address.getHostAddress());
 				} catch (IOException ioe) {

@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 public class PingWebsite {
     // method for finding the ping statics of website
-    static void commands(ArrayList<String> commandList)
-            throws Exception {
+    static void commands(ArrayList<String> commandList) throws Exception {
         // creating the sub process, execute system command
         ProcessBuilder build = new ProcessBuilder(commandList.toArray(new String[0]));
         Process process = build.start();
