@@ -1,17 +1,34 @@
-import java.util.*;
+import java.util.Scanner;
+
 public class Gobackn {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("please enter the window size: ");
-        int n = sc.nextInt();
-        for (int i = 0; i < n; i++) {
-            System.out.println("frame " + i + " has been transmitted");
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter Window size: ");
+        int window = scanner.nextInt();
+        
+        int sent = 0;
+        int ack;
+        
+        while (true) {
+            for (int i = 0; i < window; i++) {
+                System.out.println("Frame Transmitted " + sent);
+                sent++;
+                if (sent == window) {
+                    break;
+                }
+            }
+            
+            System.out.print("Enter last received acknowledgment: ");
+            ack = scanner.nextInt();
+            
+            if (ack == window) {
+                break;
+            } else {
+                sent = ack;
+            }
         }
-        System.out.print("please enter the last acknowledgement received: ");
-        int ack = sc.nextInt();
-        for (int i = ack; i < ack + n; i++) {
-            System.out.println("frame " + i + " has been transmitted");
-        }
-        sc.close();
+        
+        scanner.close();
     }
 }
