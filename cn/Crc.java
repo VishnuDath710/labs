@@ -1,6 +1,6 @@
 import java.util.*;
 
-class CRCExample {
+class Crc {
     public static void main(String args[]) {
         Scanner scan = new Scanner(System.in);
         int n,k;
