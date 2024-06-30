@@ -329,7 +329,7 @@ class SubnettingClassful {
 3) Implement distance vector routing algorithm for obtaining routing tables at each node. 
 
 import java.util.*;
-class  Main
+class  Distancevector
 {
     public static void main(String[] args) 
     {
