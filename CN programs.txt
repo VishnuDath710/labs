@@ -1,0 +1,388 @@
+1.Write a program to compute CRC code for the polynomials CRC-12,CRC-16 and CRC CCIP
+
+import java.util.*;  
+class CRCExample {  
+       public static void main(String args[]) {  
+              Scanner scan = new Scanner(System.in);  
+               int size;  
+              System.out.println("Enter the size of the data array: ");  
+        size = scan.nextInt();  
+              int data[] = new int[size];  
+               System.out.println("Enter data bits in the array one by one: ");  
+        for(int i = 0 ; i < size ; i++) {  
+            System.out.println("Enter bit " + (size-i) + ":");  
+            data[i] = scan.nextInt();  
+        }  
+               System.out.println("Enter the size of the divisor array:");  
+        size = scan.nextInt();  
+               int divisor[] = new int[size];  
+        System.out.println("Enter divisor bits in the array one by one: ");  
+        for(int i = 0 ; i < size ; i++) {  
+            System.out.println("Enter bit " + (size-i) + ":");  
+            divisor[i] = scan.nextInt();  
+        }  
+            int rem[] = divideDataWithDivisor(data, divisor);  
+               for(int i = 0; i < rem.length-1; i++) {  
+            System.out.print(rem[i]);  
+        }  
+        System.out.println("\nGenerated CRC code is: ");  
+          
+        for(int i = 0; i < data.length; i++) {  
+            System.out.print(data[i]);  
+        }  
+        for(int i = 0; i < rem.length-1; i++) {  
+            System.out.print(rem[i]);  
+        }  
+        System.out.println();  
+              int sentData[] = new int[data.length + rem.length - 1];  
+        System.out.println("Enter bits in the array which you want to send: ");  
+        for(int i = 0; i < sentData.length; i++) {  
+            System.out.println("Enter bit " +(sentData.length-1)+ ":");  
+            sentData[i] = scan.nextInt();  
+        }  
+        receiveData(sentData, divisor);  
+    }  
+        static int[] divideDataWithDivisor(int oldData[], int divisor[]) {  
+               int rem[] = new int[divisor.length];  
+        int i;  
+        int data[] = new int[oldData.length + divisor.length];  
+           System.arraycopy(oldData, 0, data, 0, oldData.length);  
+        System.arraycopy(data, 0, rem, 0, divisor.length);  
+               for(i = 0; i < oldData.length; i++) {  
+            System.out.println((i+1) + ".) First data bit is : "+ rem[0]);  
+            System.out.print("Remainder : ");  
+            if(rem[0] == 1) {  
+                              for(int j = 1; j < divisor.length; j++) {  
+                    rem[j-1] = exorOperation(rem[j], divisor[j]);  
+                    System.out.print(rem[j-1]);  
+                }  
+            }  
+            else {  
+                             for(int j = 1; j < divisor.length; j++) {  
+                    rem[j-1] = exorOperation(rem[j], 0);  
+                    System.out.print(rem[j-1]);  
+                }  
+            }  
+                  rem[divisor.length-1] = data[i+divisor.length];  
+            System.out.println(rem[divisor.length-1]);  
+        }  
+        return rem;  
+    }  
+       static int exorOperation(int x, int y) {  
+        // This simple function returns the exor of two bits  
+        if(x == y) {  
+            return 0;  
+        }  
+        return 1;  
+    }  
+       static void receiveData(int data[], int divisor[]) {  
+       
+        int rem[] = divideDataWithDivisor(data, divisor);  
+               for(int i = 0; i < rem.length; i++) {  
+            if(rem[i] != 0) {  
+                              System.out.println("Currupted data received...");  
+                return;  
+            }  
+        }  
+        System.out.println("Data received without any error.");  
+    }  
+}  
+
+
+Example input:-
+Dataword: 10011101
+Divisor: 1001
+
+2.Develop a simple data link layer that performs the flow control using the sliding window protocol, and 
+loss recovery using the Go-Back-N mechanism.
+
+a. Sliding Window:
+
+import java.util.*;
+    class sliding{
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.print("Enter window size: ");
+		int ws=sc.nextInt();
+		System.out.print("Enter number of frames to transmit: ");
+		int fs=sc.nextInt();
+		System.out.print("Enter "+fs+" frames: ");
+		int f[]=new int[fs];
+		for(int i=0 ; i<fs; i++){
+		    f[i]=sc.nextInt();
+		}
+		List<Integer> l=new ArrayList<>();
+		for(int i=0; i<fs; i++){
+		    if(l.size()==ws){
+	      System.out.println("After sending "+ws+" at each stage sender waits for acknowledgement sent by the receiver");
+		        System.out.println(l);
+		        System.out.println("Acknowledgement of above frames sent is received by sender");
+		        l.clear();
+		    }
+		    l.add(f[i]);
+		    if(i==fs-1){
+		        System.out.println(l);
+		        System.out.println("Acknowledgement of above frames sent is received by sender");
+		    }
+		}
+	}
+}
+
+
+b.Go-Back-N:
+
+import java.util.*;
+    public class gobackarq_2b {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("please enter the window size: ");
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            System.out.println("frame " + i + " has been transmitted");
+        }
+        System.out.print("please enter the last acknowledgement received: ");
+        int ack = sc.nextInt();
+        for (int i = ack; i < ack + n; i++) {
+            System.out.println("frame " + i + " has been transmitted");
+        }
+        sc.close();
+    }
+}
+
+
+3.Implementation of DNS.
+
+import java.net.*;
+import java.io.*;
+import java.util.*;
+
+public class DNS 
+{
+ public static void main(String[] args) 
+ {
+  int n;
+  BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+  do
+  {
+   System.out.println("\n Menu: \n 1. DNS 2. Reverse DNS 3. Exit \n");
+   System.out.println("\n Enter your choice");
+   n = Integer.parseInt(System.console().readLine()); 
+   if(n==1)
+   {
+    try 
+    {
+     System.out.println("\n Enter Host Name ");
+     String hname=in.readLine();
+     InetAddress address;
+     address = InetAddress.getByName(hname);
+     System.out.println("Host Name: " + address.getHostName());
+     System.out.println("IP: " + address.getHostAddress());
+    } 
+    catch(IOException ioe) 
+    {
+     ioe.printStackTrace();
+    }
+   }
+   if(n==2)
+   {
+    try 
+    {
+       System.out.println("\n Enter IP address");
+       String ipstr = in.readLine();
+       InetAddress ia = InetAddress.getByName(ipstr);
+       System.out.println("IP: "+ipstr);
+       System.out.println("Host Name: " +ia.getHostName());
+     } 
+    catch(IOException ioe) 
+    {
+     ioe.printStackTrace();
+    }
+   }
+  }while(!(n==3));
+ }
+}
+
+
+4, Implementation of Ping Service
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+ 
+public class PingWebsite
+{
+    // method for finding the ping statics of website
+    static void commands(ArrayList<String> commandList)
+                                           throws Exception
+    {
+        // creating the sub process, execute system command
+        ProcessBuilder build = new ProcessBuilder(commandList.toArray(new String[0]));
+        Process process = build.start();
+         
+        // to read the output
+        BufferedReader input = new BufferedReader(new InputStreamReader
+                                   (process.getInputStream()));
+        BufferedReader Error = new BufferedReader(new InputStreamReader
+                                   (process.getErrorStream()));
+        String s = null;
+         
+        System.out.println("Standard output: ");
+        while((s = input.readLine()) != null)
+        {
+            System.out.println(s);
+        }
+        System.out.println("error (if any): ");
+        while((s = Error.readLine()) != null)
+        {
+            System.out.println(s);
+        }
+    }
+             public static void main(String args[]) throws Exception
+    {
+        // creating list for commands
+        ArrayList<String> commandList = new ArrayList<String>();
+         
+        commandList.add("ping");
+        // can be replaced by IP
+        commandList.add("www.google.com");
+         
+        PingWebsite.commands(commandList);
+    } 
+}
+
+
+Standard output: 
+
+Pinging www.google.com [2404:6800:4007:823::2004] with 32 bytes of data:
+Reply from 2404:6800:4007:823::2004: time=75ms 
+Reply from 2404:6800:4007:823::2004: time=72ms 
+Reply from 2404:6800:4007:823::2004: time=80ms 
+Reply from 2404:6800:4007:823::2004: time=121ms 
+
+Ping statistics for 2404:6800:4007:823::2004:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+
+
+5, Take an example subnet of hosts and obtain a broadcast tree for the subnet.
+
+Program:
+
+import java.util.*;
+import java.io.*;
+class SubnettingClassful {
+ public static void main(String args[]) {
+  System.out.println("Enter the Network address");
+  Scanner sc = new Scanner(System.in);
+  String ip = sc.next();
+  String[] IPs = ip.split("\\.");
+  int[] IP = new int[IPs.length];
+  for (int i = 0; i < IPs.length; i++) {
+   IP[i] = Integer.parseInt(IPs[i]);
+   //System.out.println(IP[i]);
+  }
+  System.out.println("Enter the number of Subnets");
+  int sub = sc.nextInt();
+  int temp = IP[0];
+  int mask;
+  if (temp < 128) {
+   mask = 8;
+  } else if (temp < 192) {
+   mask = 16;
+  } else if (temp < 224) {
+   mask = 24;
+  } else {
+   System.out.println("Invalid IP for subnetting");
+   return;
+  }
+  int rem = 32 - mask;
+  long incr1 = 0;
+  long incr = ((long) Math.round(Math.pow(2, rem))) / sub;
+  long incr2 = incr;
+  long t1 = 0;
+  //System.out.println(rem+"    "+incr1+"\t"+incr2);
+  for (int j = 0; j < sub; j++) {
+   t1 = incr2;
+   //System.out.println(incr2);
+   System.out.print(IP[0]);
+   System.out.print("." + (IP[1] + (incr1 / (256 * 256))) % 256);
+   System.out.print("." + (IP[2] + (incr1 / 256)) % 256);
+   System.out.print("." + (IP[3] + (incr1 % 256)));
+
+   System.out.print("\t-TO-\t");
+   System.out.print(IP[0]);
+   System.out.print("." + (IP[1] + (t1 / (256 * 256)) - 1) % 256);
+
+   System.out.print("." + (IP[2] + (t1 / 256) - 1) % 256);
+   System.out.print("." + (IP[3] + ((t1 - 1) % 256)));
+   System.out.println("\n");
+   incr1 = incr2;
+   incr2 = incr1 + incr;
+  }
+ }
+}
+
+
+
+
+
+3) Implement distance vector routing algorithm for obtaining routing tables at each node. 
+
+import java.util.*;
+class  Main
+{
+    public static void main(String[] args) 
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter number of nodes:");
+        int n=sc.nextInt();
+        System.out.println("Enter the distance matrix:");
+        int matrix[][]=new int[n][n];
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                matrix[i][j]=sc.nextInt();
+            }           
+        }
+        for(int i=0;i<n;i++)
+        {
+            System.out.println("Router info for router: "+i+1);
+            System.out.println("Destination\t NextHop\t Dist\t");
+            for(int j=0;j<n;j++)
+            {
+                System.out.println(j+"\t\t"+j+"\t\t"+matrix[i][j]+"\t\t");  
+            }
+        }      
+    }
+}
+OUTPUT
+Enter number of nodes:
+3
+Enter the distance matrix:
+1 0 99
+0 2 99
+3 2 0
+
+Router info for router: 01
+Destination      NextHop         Dist
+0               0               1
+1               1               0
+2               2               99
+Router info for router: 11
+Destination      NextHop         Dist
+0               0               0
+1               1               2
+2               2               99
+Router info for router: 21
+Destination      NextHop         Dist
+0               0               3
+1               1               2
+2               2               0
+
+
+
+
+
+
+
