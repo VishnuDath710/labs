@@ -99,7 +99,7 @@ loss recovery using the Go-Back-N mechanism.
 a. Sliding Window:
 
 import java.util.*;
-    class sliding{
+class sliding{
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
 		System.out.print("Enter window size: ");
@@ -132,7 +132,7 @@ import java.util.*;
 b.Go-Back-N:
 
 import java.util.*;
-    public class gobackarq_2b {
+public class gobackn {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("please enter the window size: ");
