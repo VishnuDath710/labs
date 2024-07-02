@@ -1,0 +1,3 @@
+Dear Students 
+You have the following 6 lab experiments for mid-2 lab internal
+kindly find the ipynb files of all 6 experiments. Also note all the experiements should be executed on jupyter notebook in the systems available in the labs. Datasets will be provided for the experiments if required. internet facility will not be available.
