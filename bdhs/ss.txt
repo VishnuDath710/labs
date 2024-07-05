@@ -1,0 +1,37 @@
+import java.io.IOException;
+import org.apache.pig.EvalFunc;
+import org.apache.pig.data.Tuple;
+
+public class BonusCalculator extends EvalFunc<Double> {
+    @Override
+    public Double exec(Tuple input) throws IOException {
+        if (input == null || input.size() == 0) {
+            return null;
+        }
+        try {
+            Double salary = (Double) input.get(0);
+            return salary * 0.10;  // Calculate 10% bonus
+        } catch (Exception e) {
+            throw new IOException("Caught exception processing input row ", e);
+        }
+    }
+}
+
+/usr/lib/pig/*:.
+
+
+
+
+
+import java.io.IOException;
+import org.apache.hadoop.hive.ql.exec.Description;
+import org.apache.hadoop.hive.ql.exec.UDF;
+
+public class BonusCalculator extends UDF {
+    public double evaluate(double salary) {
+        return salary * 0.10;
+    }
+}
+
+
+/usr/lib/hive/libs/*:.
