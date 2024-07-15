@@ -79,3 +79,40 @@ public class DistanceVectorRouting {
         scanner.close();
     }
 }
+
+// Enter the number of nodes: 4
+// Enter the cost matrix (use 9999 for INF):
+// 0 2 9999 1
+// 2 0 3 9999
+// 9999 3 0 1
+// 1 9999 1 0
+
+
+
+// Routing table for node 0:
+// Destination    Next Hop    Distance
+// 0              -           0
+// 1              1           2
+// 2              3           2
+// 3              3           1
+
+// Routing table for node 1:
+// Destination    Next Hop    Distance
+// 0              0           2
+// 1              -           0
+// 2              2           3
+// 3              2           4
+
+// Routing table for node 2:
+// Destination    Next Hop    Distance
+// 0              3           2
+// 1              1           3
+// 2              -           0
+// 3              3           1
+
+// Routing table for node 3:
+// Destination    Next Hop    Distance
+// 0              0           1
+// 1              0           3
+// 2              2           1
+// 3              -           0

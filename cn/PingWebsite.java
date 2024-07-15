@@ -31,7 +31,8 @@ public class PingWebsite {
 
         commandList.add("ping");
         // can be replaced by IP
-        commandList.add("www.google.com");
+        // commandList.add("www.google.com");
+        commandList.add("www.localhost");
 
         PingWebsite.commands(commandList);
     }
