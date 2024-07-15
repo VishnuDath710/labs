@@ -1,6 +1,7 @@
+package dont;
 import java.util.*;
 
-class Subnetting {
+class Pulka {
 
     public static void Subnets(int IP[], int sub) {
         int temp = IP[0];

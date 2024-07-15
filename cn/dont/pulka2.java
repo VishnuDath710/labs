@@ -1,5 +1,6 @@
+package dont;
 import java.util.*;
-class  Distancevector
+class  pulka2
 {
     public static void main(String[] args) 
     {
