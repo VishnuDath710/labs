@@ -1,0 +1,44 @@
+to remove from safe mode
+
+> hdfs dfsadmin -safemode leave
+
+
+adding hadoop to class path for word program:
+
+> export HADOOP_CLASSPATH=$(hadoop classpath)
+
+to verify
+
+> echo $HADOOP_CLASSPATH
+
+
+# Compile the Java code with Hadoop libraries
+javac -cp "$(hadoop classpath)" WordCount.java
+
+# Create a JAR file for the WordCount job
+jar -cvf WordCount.jar *.class
+
+
+# Copy the input file to HDFS
+hdfs dfs -mkdir -p /user/cloudera/wordcount/input
+hdfs dfs -put /home/cloudera/Desktop/wrc.txt /user/cloudera/wordcount/input/
+
+# Create an output directory in HDFS
+hdfs dfs -mkdir -p /user/cloudera/wordcount/output
+(no need)
+
+local host 50070
+
+ 
+run code >>>  hadoop jar WordCount.jar WordCount /user/cloudera/wordcount/input /user/cloudera/wordcount/output_new
+
+
+
+hdfs dfs -ls /user/cloudera/wordcount/output_new 
+
+hdfs dfs -cat /user/cloudera/wordcount/output_new/part-r-00000
+
+<=====  word net complete =======>
+
+
+
