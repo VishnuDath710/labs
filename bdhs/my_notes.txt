@@ -42,3 +42,61 @@ hdfs dfs -cat /user/cloudera/wordcount/output_new/part-r-00000
 
 
 
+
+
+
+
+
+
+
+
+ now hive UDF
+
+
+ import org.apache.hadoop.hive.ql.exec.UDF;
+
+public class BonusCalculator extends UDF {
+    public double evaluate(double salary) {
+        return salary * 0.10;
+    }
+}
+
+
+
+javac -classpath /usr/lib/hive/lib/*:. BonusCalculator.java
+jar -cvf BonusCalculator.jar BonusCalculator.class
+
+
+
+CREATE TABLE employee_bucketed (
+id INT,name STRING, salary DOUBLE
+)
+CLUSTERED BY (id) INTO 4 BUCKETS ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
+
+
+
+
+
+hive UDF
+
+
+javac -cp "/usr/lib/hadoop/*:/usr/lib/hive/lib/*:." BonusCalculator.java
+
+
+
+
+CREATE TABLE employee_bucketed (
+id INT,name STRING, salary DOUBLE)
+CLUSTERED BY (id) INTO 4 BUCKETS ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
+
+
+
+add jar /home/cloudera/Desktop/labs/hiveudf/BonusCalculator.jar;
+
+
+no quotess
+
+
+

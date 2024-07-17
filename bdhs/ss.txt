@@ -34,4 +34,7 @@ public class BonusCalculator extends UDF {
 }
 
 
+
+javac -cp "/usr/lib/hadoop/*:/usr/lib/hive/lib/*:." BonusCalculator.java
+
 /usr/lib/hive/libs/*:.
